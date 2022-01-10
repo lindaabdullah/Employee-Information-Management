@@ -1,0 +1,106 @@
+﻿@using CMPE363Project.Models
+@model List<tblEmployee>
+
+<!-- HEADER -->
+@section head {
+
+    <style>
+
+        td {
+            padding: 8px;
+        }
+
+        th {
+            padding: 8px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .table {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Class 'form' */
+        .form {
+            display: flex;
+        }
+
+        /* Element 'form' */
+        form {
+            margin: 8px;
+        }
+    </style>
+}
+
+@{
+    // Sorts in place
+    Model.Sort((e1, e2) => e1.EmpID - e2.EmpID);
+}
+
+<!-- BODY -->
+<div class="form">
+
+    <form class="delform" action="/Home/Delete" method="post">
+        <label for="del">Delete employee with id:</label><br>
+        <input type="text" id="del" name="del"><br>
+        <input type="submit" value="Delete">
+    </form>
+
+    <form class="addform" action="/Home/Add" method="post">
+        <label for="add">Add new employee:</label><br>
+
+        <label for="add">Employee Name:</label><br>
+        <input type="text" id="empname" name="EmpName"><br>
+
+        <label for="add">Employee Surname:</label><br>
+        <input type="text" id="empsurname" name="EmpSurname"><br>
+
+        <label for="add">Employee Address:</label><br>
+        <input type="text" id="empadd" name="EmpAddress"><br>
+
+        <label for="add">Employee Phone number:</label><br>
+        <input type="number" id="empphone" name="EmpPhone"><br>
+
+
+        <input type="submit" value="Add">
+    </form>
+
+    <form action="/Home/Select" method="post">
+        <label for="select">Select employee with id:</label><br>
+        <input type="text" id="empid" name="EmpID"><br>
+        <input type="submit" value="Select">
+    </form>
+</div>
+<div class="table">
+    <table>
+        <tr class="employee">
+            <th>EmpID</th>
+            <th>EmpName</th>
+            <th>EmpSurname</th>
+            <th>EmpAddress</th>
+            <th>EmpPhone</th>
+
+        </tr>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <div>
+
+                <td>@employee.EmpID</td>
+                <td>@employee.EmpName</td>
+                <td>@employee.EmpSurname</td>
+                <td>@employee.EmpAddress</td>
+                <td>@employee.EmpPhone</td>
+    </div>
+    </tr>
+
+}
+
+        </table>
+
+        </div>
