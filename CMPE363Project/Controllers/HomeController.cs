@@ -53,5 +53,24 @@ namespace CMPE363Project.Controllers
                 return View("Index", list);
             }
         }
+
+        public string Update(tblEmployee emp)
+        {
+            var m = new Model1();
+            tblEmployee exists = m.tblEmployees.FirstOrDefault(i => i.EmpID == emp.EmpID);
+            if (exists != null)
+            {
+                exists.EmpName = emp.EmpName;
+                exists.EmpSurname = emp.EmpSurname;
+                exists.EmpAddress = emp.EmpAddress;
+                exists.EmpPhone = emp.EmpPhone;
+                m.SaveChanges();
+                return "successful";
+            }
+            else
+            {
+                return $"Employee with ID {emp.EmpID} does not exist.";
+            }
+        }
     }
 }
